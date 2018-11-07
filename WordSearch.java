@@ -3,8 +3,18 @@ public class WordSearch {
 
   public WordSearch(int rows, int cols) {
     data = new char[rows][cols];
-    for (int i = 0; i < rows; i++) {
+    clear();
+    /*for (int i = 0; i < rows; i++) {
       for (int n = 0; n < cols; n++) {
+        data[i][n] = '_';
+      }
+    }
+    */
+  }
+
+  public void clear() {
+    for (int i = 0; i < data.length; i++) {
+      for (int n = 0; n < data[i].length; n++) {
         data[i][n] = '_';
       }
     }
