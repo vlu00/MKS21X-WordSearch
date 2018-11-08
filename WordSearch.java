@@ -4,12 +4,6 @@ public class WordSearch {
   public WordSearch(int rows, int cols) {
     data = new char[rows][cols];
     clear();
-    /*for (int i = 0; i < rows; i++) {
-      for (int n = 0; n < cols; n++) {
-        data[i][n] = '_';
-      }
-    }
-    */
   }
 
   public void clear() {
@@ -30,4 +24,23 @@ public class WordSearch {
     }
     return s;
   }
+
+  public boolean addWordHorizontal(String word, int row, int col) {
+    boolean complete = true;
+    if (col + word.length() > data[row].length) {
+      return false;
+    }
+    else {
+      for (int i = 0; i < word.length(); i++) {
+        if (data[row][col+i] != '_' && data[row][col+i] != word.charAt(i)) {
+            return false;
+        }
+      }
+      for (int i = 0; i < word.length(); i++) {
+          data[row][col+i] = word.charAt(i);
+      }
+    }
+    return complete;
+  }
+
 }
