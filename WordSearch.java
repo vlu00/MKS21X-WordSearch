@@ -43,4 +43,22 @@ public class WordSearch {
     return complete;
   }
 
+  public boolean addWordVertical(String word, int row, int col) {
+    boolean complete = true;
+    if (row + word.length() > data.length) {
+      return false;
+    }
+    else {
+      for (int i = 0; i < word.length(); i++) {
+        if (data[row+i][col] != '_' && data[row+i][col] != word.charAt(i)) {
+            return false;
+        }
+      }
+      for (int i = 0; i < word.length(); i++) {
+          data[row+i][col] = word.charAt(i);
+      }
+    }
+    return complete;
+  }
+
 }
