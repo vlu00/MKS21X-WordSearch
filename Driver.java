@@ -1,21 +1,22 @@
 public class Driver {
   public static void main (String [] args) {
     System.out.println("Testing addWordHorizontal");
-    WordSearch A = new WordSearch(4,7);
-    System.out.println(A);
-    System.out.println(A.addWordHorizontal("MATH", 2, 1));
-    System.out.println(A);
-    System.out.println(A.addWordHorizontal("CAT", 2, 1));
-    System.out.println(A);
-    System.out.println(A.addWordHorizontal("SCIENCE", 2, 1));
-    System.out.println(A);
-    A.clear();
-    System.out.println(A);
+    WordSearch A1 = new WordSearch(0,0);
+    WordSearch A2 = new WordSearch(4,7);
+    System.out.println(A1);
+    System.out.println(A1.addWordHorizontal("MATH", 2, 1));
+    System.out.println(A2);
+    System.out.println(A2.addWordHorizontal("MATH", 2, 1));
+    System.out.println(A2);
+    System.out.println(A2.addWordHorizontal("SCIENCE", 2, 1));
+    System.out.println(A2);
+    A2.clear();
+    System.out.println(A2);
 
     System.out.println("Testing addWordVertical");
     WordSearch B = new WordSearch(5,4);
     System.out.println(B);
-    System.out.println(B.addWordVertical("MATH", 1, 1));
+    System.out.println(B.addWordVertical("MATH", 5, 1));
     System.out.println(B);
     System.out.println(B.addWordVertical("DOG", 1, 1));
     System.out.println(B);
@@ -38,5 +39,11 @@ public class Driver {
     System.out.println(C.addWordVertical("DOG", 0, 2));
     System.out.println(C);
 
+    System.out.println("Testing addWordDiagonal");
+    WordSearch D = new WordSearch(5,5);
+    System.out.println(D.addWordDiagonal("MATH", 1, 1));
+    System.out.println(D.addWordDiagonal("TIME", 0, 1));
+    System.out.println(D.addWordDiagonal("HAPPY", 0, 0));
+    System.out.println(D);
   }
 }
