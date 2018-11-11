@@ -1,5 +1,20 @@
 public class Driver {
   public static void main (String [] args) {
+    System.out.println("Testing addWord");
+    WordSearch C = new WordSearch(4,4);
+    System.out.println(C);
+    System.out.println(C.addWord(0,1,"Cat",0,1));
+    System.out.println(C);
+    System.out.println(C.addWord(1,1,"Dog",1,0));
+    System.out.println(C);
+    System.out.println(C.addWord(0,1,"frog",1,0));
+    System.out.println(C.addWord(3,0, "Fish", -1, 0));
+    System.out.println(C);
+    System.out.println(C.addWord(0,1,"Cat",1,1));
+    System.out.println(C);
+    System.out.println(C.addWord(3,3,"Dog",0,-1));
+    System.out.println(C);
+/*
     System.out.println("Testing addWordHorizontal");
     WordSearch A1 = new WordSearch(0,0);
     WordSearch A2 = new WordSearch(4,7);
@@ -45,5 +60,6 @@ public class Driver {
     System.out.println(D.addWordDiagonal("TIME", 0, 1));
     System.out.println(D.addWordDiagonal("HAPPY", 0, 0));
     System.out.println(D);
+*/
   }
 }

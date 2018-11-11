@@ -15,14 +15,132 @@ public class WordSearch{
     //all words that were successfully added get moved into wordsAdded.
     private ArrayList<String>wordsAdded;
 
-    public WordSearch( int rows, int cols, String fileName) {
-      
+    public WordSearch(int rows, int cols) {
+      data = new char[rows][cols];
+      clear();
     }
-    public WordSearch( int rows, int cols, String fileName, int randSeed)
-    Both will read in the word text file, then run addAllWords(). Do not fill in random letters after.
+    public WordSearch( int rows, int cols, String fileName) {
 
-//toString should print in the following format:
-//use '|' as left/right boundaries of the grid.
-//One long line of comma separated words after the string "Words: "
+    }
+    public WordSearch( int rows, int cols, String fileName, int randSeed) {
+
+    }
+
+    public String toString() {
+      String s = "";
+      for (int i = 0; i < data.length; i++) {
+        s = s + "|";
+        for (int n = 0; n < data[i].length; n++) {
+          s = s + data[i][n] + " ";
+        }
+        s = s + "|\n";
+      }
+      return s;
+      //need to add word: + seed
+    }
+
+    public void clear() {
+      for (int i = 0; i < data.length; i++) {
+        for (int n = 0; n < data[i].length; n++) {
+          data[i][n] = '_';
+        }
+      }
+    }
+//change addword to private afterwards!!
+    public boolean addWord (int r, int c, String word, int rowIncrement, int colIncrement) {
+      boolean complete = true;
+      if (!valid(word, r, c) && (rowIncrement == 0 && colIncrement == 0)) {
+        return false;
+      }
+      if (colIncrement == 1 && c + word.length() > data[0].length) {
+        return false;
+      }
+      if (colIncrement == -1 && c+1 - word.length() < 0) {
+        return false;
+      }
+      if (rowIncrement == 1 && r + word.length() > data.length) {
+        return false;
+      }
+      if (rowIncrement == -1 && r+1 - word.length() < 0) {
+        return false;
+      }
+      else {
+        for (int i = 0; i < word.length(); i++) {
+          if (data[r + i * rowIncrement][c + i * colIncrement] != '_' &&
+              data[r + i * rowIncrement][c + i * colIncrement] != word.charAt(i) ) {
+                return false;
+              }
+        }
+        for (int i = 0; i < word.length(); i++) {
+          data[r + i * rowIncrement][c + i * colIncrement] = word.charAt(i);
+        }
+      }
+      return complete;
+    }
+
+    /**Checks if the WordGrid can hold words and if the given position is valid
+       *@return true if the given position parameters are valid. If the given
+       *position parameters are not valid, return false.
+       */
+    public boolean valid(String word, int row, int col) {
+      return data.length == 0 || data[0].length == 0 ||
+             row < 0 || col < 0 ||
+             row > data.length -1 || col > data[1].length -1;
+    }
+
+    public boolean addWordHorizontal(String word, int row, int col) {
+      boolean complete = true;
+      if (valid(word, row, col) || col + word.length() > data[0].length) {
+        return false;
+      }
+      else {
+        for (int i = 0; i < word.length(); i++) {
+          if (data[row][col+i] != '_' && data[row][col+i] != word.charAt(i)) {
+              return false;
+          }
+        }
+        for (int i = 0; i < word.length(); i++) {
+            data[row][col+i] = word.charAt(i);
+        }
+      }
+      return complete;
+    }
+
+    public boolean addWordVertical(String word, int row, int col) {
+      boolean complete = true;
+      if (valid(word, row, col) || row + word.length() > data.length ) {
+        return false;
+      }
+      else {
+        for (int i = 0; i < word.length(); i++) {
+          if (data[row+i][col] != '_' && data[row+i][col] != word.charAt(i)) {
+              return false;
+          }
+        }
+        for (int i = 0; i < word.length(); i++) {
+            data[row+i][col] = word.charAt(i);
+        }
+      }
+      return complete;
+    }
+
+    public boolean addWordDiagonal(String word,int row, int col){
+      boolean complete = true;
+      if (valid(word, row, col) || row + word.length() > data.length ||
+          col + word.length() > data[0].length) {
+        return false;
+      }
+      else {
+        for (int i = 0; i < word.length(); i++) {
+          if (data[row+i][col+i] != '_' && data[row+i][col+i] != word.charAt(i)) {
+              return false;
+          }
+        }
+        for (int i = 0; i < word.length(); i++) {
+            data[row+i][col+i] = word.charAt(i);
+        }
+      }
+      return complete;
+    }
 
 }
