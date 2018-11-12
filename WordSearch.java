@@ -20,7 +20,7 @@ public class WordSearch{
       clear();
     }
 
-    //Fills list with words that need to be added from the five file and creates a blank grid. 
+    //Fills list with words that need to be added from the five file and creates a blank grid.
     public void helper(int rows, int cols, String fileName) throws FileNotFoundException{
       wordsToAdd = new ArrayList();
       data = new char[rows][cols];
@@ -54,7 +54,6 @@ public class WordSearch{
         s = s + "|\n";
       }
       return s + "Words: " + wordsAdded + "(seed: " + seed + ")";
-      //need to add word: + seed
     }
 
     public void clear() {
@@ -96,9 +95,29 @@ public class WordSearch{
       return complete;
     }
 
-    //private void addAllWords() {
-    //  while
-    //}
+    public int addAllWords() {
+      String word = "";
+      int index;
+      while (wordsToAdd.size() > 0) {
+        randgen = new Random();
+        index = randgen.nextInt(wordsToAdd.size());
+        word = wordsToAdd.get(index);
+        rowInc = randgen.nextInt(2) -1;
+        colInc = randgen.nextInt(2) -1;
+        for (int i = 0; i < 10; i++) {
+          row = randgen.nextInt(data.length);
+          col = randgen.nextInt(data[0].length);
+          if (addWord(word, row, col, rowInc, colInc)) {
+            wordsAdded.add(word);
+            wordsToAdd.remove(0);
+            i = 10;
+          }
+        }
+        //exit for loop means you have to deal with if add word was false 
+      }
+      return ;
+    }
+
 
 
     /**Checks if the WordGrid can hold words and if the given position is valid
