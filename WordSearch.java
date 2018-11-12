@@ -44,7 +44,7 @@ public class WordSearch{
       seed = randSeed;
       randgen = new Random(seed);
     }
-
+    //Formats the list of added words.
     public String list(ArrayList<String> s) {
       String l = "";
       for (int i = 0; i < s.size(); i++) {
@@ -62,7 +62,7 @@ public class WordSearch{
         }
         s = s + "|\n";
       }
-      return s + "Words: " + list(wordsAdded) + "(seed: " + seed + ")";
+      return s + "Words: " + list(wordsAdded) +"(seed: " + seed + ")";
     }
 
     public void clear() {
@@ -110,14 +110,14 @@ public class WordSearch{
       while (wordsToAdd.size() > 0) {
         index = randgen.nextInt(wordsToAdd.size());
         word = wordsToAdd.get(index);
-        int rowInc = randgen.nextInt(2) -1;
-        int colInc = randgen.nextInt(2) -1;
-        for (int i = 0; i < 10; i++) {
+        int rowInc = randgen.nextInt(3) -1;
+        int colInc = randgen.nextInt(3) -1;
+        for (int i = 0; i < 100000; i++) {
           int row = randgen.nextInt(data.length);
           int col = randgen.nextInt(data[0].length);
           if (addWord(word, row, col, rowInc, colInc)) {
             wordsAdded.add(word);
-            i = 10;
+            i = 100000;
           }
         }
         wordsToAdd.remove(index);
