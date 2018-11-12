@@ -120,7 +120,7 @@ public class WordSearch{
             i = 10;
           }
         }
-        wordsToAdd.remove(0);
+        wordsToAdd.remove(index);
       }
     }
 
