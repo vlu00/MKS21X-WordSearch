@@ -23,6 +23,7 @@ public class WordSearch{
     //Fills list with words that need to be added from the five file and creates a blank grid.
     public void helper(int rows, int cols, String fileName) throws FileNotFoundException{
       wordsToAdd = new ArrayList();
+      wordsAdded = new ArrayList();
       data = new char[rows][cols];
       clear();
       File f = new File(fileName);
@@ -44,6 +45,14 @@ public class WordSearch{
       randgen = new Random(seed);
     }
 
+    public String list(ArrayList<String> s) {
+      String l = "";
+      for (int i = 0; i < s.size(); i++) {
+        l = l + s.get(i) + " ";
+      }
+      return l;
+    }
+
     public String toString() {
       String s = "";
       for (int i = 0; i < data.length; i++) {
@@ -53,7 +62,7 @@ public class WordSearch{
         }
         s = s + "|\n";
       }
-      return s + "Words: " + wordsAdded + "(seed: " + seed + ")";
+      return s + "Words: " + list(wordsAdded) + "(seed: " + seed + ")";
     }
 
     public void clear() {
@@ -95,27 +104,24 @@ public class WordSearch{
       return complete;
     }
 
-    public int addAllWords() {
+    public void addAllWords() {
       String word = "";
       int index;
       while (wordsToAdd.size() > 0) {
-        randgen = new Random();
         index = randgen.nextInt(wordsToAdd.size());
         word = wordsToAdd.get(index);
-        rowInc = randgen.nextInt(2) -1;
-        colInc = randgen.nextInt(2) -1;
+        int rowInc = randgen.nextInt(2) -1;
+        int colInc = randgen.nextInt(2) -1;
         for (int i = 0; i < 10; i++) {
-          row = randgen.nextInt(data.length);
-          col = randgen.nextInt(data[0].length);
+          int row = randgen.nextInt(data.length);
+          int col = randgen.nextInt(data[0].length);
           if (addWord(word, row, col, rowInc, colInc)) {
             wordsAdded.add(word);
-            wordsToAdd.remove(0);
             i = 10;
           }
         }
-        //exit for loop means you have to deal with if add word was false 
+        wordsToAdd.remove(0);
       }
-      return ;
     }
 
 

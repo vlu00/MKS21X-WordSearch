@@ -5,7 +5,11 @@ public class Driver {
     try {
       WordSearch C = new WordSearch(4,4,"Word.txt");
       System.out.println(C);
+      C.addAllWords();
+      System.out.println(C);
       WordSearch D = new WordSearch(4,4,"Word.txt", 110);
+      System.out.println(D);
+      D.addAllWords();
       System.out.println(D);
 
     }catch (FileNotFoundException e){
