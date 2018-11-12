@@ -72,8 +72,8 @@ public class WordSearch{
         }
       }
     }
-//change addword to private afterwards!!
-    public boolean addWord (String word, int r, int c, int rowIncrement, int colIncrement) {
+
+    private boolean addWord (String word, int r, int c, int rowIncrement, int colIncrement) {
       boolean complete = true;
       if (!valid(word, r, c) && (rowIncrement == 0 && colIncrement == 0)) {
         return false;
@@ -104,7 +104,7 @@ public class WordSearch{
       return complete;
     }
 
-    public void addAllWords() {
+    private void addAllWords() {
       String word = "";
       int index;
       while (wordsToAdd.size() > 0) {
