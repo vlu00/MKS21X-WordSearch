@@ -1,5 +1,22 @@
+import java.util.*; //random, scanner, arraylist
+import java.io.*; //file, filenotfoundexception
 public class Driver {
   public static void main (String [] args) {
+    try {
+      WordSearch C = new WordSearch(4,4,"Word.txt");
+      System.out.println(C);
+      WordSearch D = new WordSearch(4,4,"Word.txt", 110);
+      System.out.println(D);
+
+    }catch (FileNotFoundException e){
+        System.out.println("File not found");
+        System.exit(1);
+     }
+
+
+
+
+/*
     System.out.println("Testing addWord");
     WordSearch C = new WordSearch(4,4);
     System.out.println(C);
@@ -14,7 +31,7 @@ public class Driver {
     System.out.println(C);
     System.out.println(C.addWord(3,3,"Dog",0,-1));
     System.out.println(C);
-/*
+
     System.out.println("Testing addWordHorizontal");
     WordSearch A1 = new WordSearch(0,0);
     WordSearch A2 = new WordSearch(4,7);
