@@ -10,20 +10,31 @@ public class WordSearch{
     private Random randgen;
 
     //all words from a text file get added to wordsToAdd, indicating that they have not yet been added
-    private ArrayList<String>wordsToAdd;
+    public ArrayList<String> wordsToAdd;
 
     //all words that were successfully added get moved into wordsAdded.
-    private ArrayList<String>wordsAdded;
+    private ArrayList<String> wordsAdded;
 
     public WordSearch(int rows, int cols) {
       data = new char[rows][cols];
       clear();
     }
-    public WordSearch( int rows, int cols, String fileName) {
 
+    public WordSearch(int rows, int cols, String fileName) throws FileNotFoundException{
+      data = new char[rows][cols];
+      clear();
+      seed = randgen.nextInt() % 1000;
+      File f = new File(fileName);
+      Scanner in = new Scanner(f);
+      while (in.hasNext()) {
+        wordsToAdd.add(in.next());
+      }
     }
-    public WordSearch( int rows, int cols, String fileName, int randSeed) {
 
+    public WordSearch( int rows, int cols, String fileName, int randSeed) {
+      data = new char[rows][cols];
+      clear();
+      seed = randSeed;
     }
 
     public String toString() {
@@ -35,7 +46,7 @@ public class WordSearch{
         }
         s = s + "|\n";
       }
-      return s;
+      return s + "Words: " + wordsAdded;
       //need to add word: + seed
     }
 
@@ -47,7 +58,7 @@ public class WordSearch{
       }
     }
 //change addword to private afterwards!!
-    public boolean addWord (int r, int c, String word, int rowIncrement, int colIncrement) {
+    public boolean addWord (String word, int r, int c, int rowIncrement, int colIncrement) {
       boolean complete = true;
       if (!valid(word, r, c) && (rowIncrement == 0 && colIncrement == 0)) {
         return false;
