@@ -124,8 +124,6 @@ public class WordSearch{
       }
     }
 
-
-
     /**Checks if the WordGrid can hold words and if the given position is valid
        *@return true if the given position parameters are valid. If the given
        *position parameters are not valid, return false.
@@ -134,6 +132,10 @@ public class WordSearch{
       return data.length == 0 || data[0].length == 0 ||
              row < 0 || col < 0 ||
              row > data.length -1 || col > data[1].length -1;
+    }
+
+    public static void main (String [] args) {
+      System.out.print 
     }
 
     public boolean addWordHorizontal(String word, int row, int col) {
