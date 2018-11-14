@@ -15,6 +15,28 @@ public class WordSearch{
     //all words that were successfully added get moved into wordsAdded.
     private ArrayList<String> wordsAdded;
 
+    public WordSearch(int rows, int cols, String fileName, boolean key) {
+      data = new char [rows][cols];
+      clear();
+      randgen = new random(seed);
+      wordsAdded = new ArrayList();
+      wordsToAdd = getWords(fileName);
+      addAllWords();
+      if (!key) {
+        fillRandom();
+      }
+    }
+
+    public void getWords(String fileName) {
+      wordsToAdd = new ArrayList();
+      File f = new File(fileName);
+      Scanner in = new Scanner(f);
+      while (in.hasNext()) {
+        wordsToAdd.add(in.next());
+      }
+    }
+
+    /*
     public WordSearch(int rows, int cols) {
       data = new char[rows][cols];
       clear();
@@ -52,6 +74,7 @@ public class WordSearch{
       }
       return l;
     }
+    */
 
     public String toString() {
       String s = "";
@@ -133,9 +156,9 @@ public class WordSearch{
              row < 0 || col < 0 ||
              row > data.length -1 || col > data[1].length -1;
     }
-
+/*
     public static void main (String [] args) {
-      System.out.print 
+      System.out.print;
     }
 
     public boolean addWordHorizontal(String word, int row, int col) {
@@ -192,5 +215,5 @@ public class WordSearch{
       }
       return complete;
     }
-
+*/
 }
