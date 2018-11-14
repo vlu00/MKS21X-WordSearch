@@ -18,9 +18,9 @@ public class WordSearch{
     public WordSearch(int rows, int cols, String fileName, boolean key) {
       data = new char [rows][cols];
       clear();
-      randgen = new random(seed);
+      randgen = new Random(seed);
       wordsAdded = new ArrayList();
-      wordsToAdd = getWords(fileName);
+      getWords(fileName);
       addAllWords();
       if (!key) {
         fillRandom();
@@ -36,36 +36,16 @@ public class WordSearch{
       }
     }
 
-    /*
-    public WordSearch(int rows, int cols) {
-      data = new char[rows][cols];
-      clear();
-    }
-
-    //Fills list with words that need to be added from the five file and creates a blank grid.
-    public void helper(int rows, int cols, String fileName) throws FileNotFoundException{
-      wordsToAdd = new ArrayList();
-      wordsAdded = new ArrayList();
-      data = new char[rows][cols];
-      clear();
-      File f = new File(fileName);
-      Scanner in = new Scanner(f);
-      while (in.hasNext()) {
-        wordsToAdd.add(in.next());
+    public void fillRandom() {
+      for (int i = 0; i < data.length; i++) {
+        for (int n = 0; n < data[0].length; n++) {
+          if (data[i][n] == ' ') {
+            data[i][n] = (char)('A' + randgen.nextInt(26)); //
+          }
+        }
       }
     }
 
-    public WordSearch(int rows, int cols, String fileName) throws FileNotFoundException{
-      helper(rows, cols, fileName);
-      randgen = new Random();
-      seed = Math.abs(randgen.nextInt() % 1000);
-    }
-
-    public WordSearch( int rows, int cols, String fileName, int randSeed) throws FileNotFoundException {
-      helper(rows, cols, fileName);
-      seed = randSeed;
-      randgen = new Random(seed);
-    }
     //Formats the list of added words.
     public String list(ArrayList<String> s) {
       String l = "";
@@ -74,7 +54,6 @@ public class WordSearch{
       }
       return l;
     }
-    */
 
     public String toString() {
       String s = "";
@@ -91,7 +70,7 @@ public class WordSearch{
     public void clear() {
       for (int i = 0; i < data.length; i++) {
         for (int n = 0; n < data[i].length; n++) {
-          data[i][n] = '_';
+          data[i][n] = ' ';
         }
       }
     }
@@ -115,7 +94,7 @@ public class WordSearch{
       }
       else {
         for (int i = 0; i < word.length(); i++) {
-          if (data[r + i * rowIncrement][c + i * colIncrement] != '_' &&
+          if (data[r + i * rowIncrement][c + i * colIncrement] != ' ' &&
               data[r + i * rowIncrement][c + i * colIncrement] != word.charAt(i) ) {
                 return false;
               }
@@ -156,7 +135,40 @@ public class WordSearch{
              row < 0 || col < 0 ||
              row > data.length -1 || col > data[1].length -1;
     }
-/*
+
+
+    /*
+    public WordSearch(int rows, int cols) {
+      data = new char[rows][cols];
+      clear();
+    }
+
+    //Fills list with words that need to be added from the five file and creates a blank grid.
+    public void helper(int rows, int cols, String fileName) throws FileNotFoundException{
+      wordsToAdd = new ArrayList();
+      wordsAdded = new ArrayList();
+      data = new char[rows][cols];
+      clear();
+      File f = new File(fileName);
+      Scanner in = new Scanner(f);
+      while (in.hasNext()) {
+        wordsToAdd.add(in.next());
+      }
+    }
+
+    public WordSearch(int rows, int cols, String fileName) throws FileNotFoundException{
+      helper(rows, cols, fileName);
+      randgen = new Random();
+      seed = Math.abs(randgen.nextInt() % 1000);
+    }
+
+    public WordSearch( int rows, int cols, String fileName, int randSeed) throws FileNotFoundException {
+      helper(rows, cols, fileName);
+      seed = randSeed;
+      randgen = new Random(seed);
+    }
+
+
     public static void main (String [] args) {
       System.out.print;
     }
