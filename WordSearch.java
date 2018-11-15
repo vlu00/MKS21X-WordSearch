@@ -136,8 +136,18 @@ public class WordSearch{
              row > data.length -1 || col > data[1].length -1;
     }
 
+    public boolean isInteger(String a) {
+      boolean x = true;
+      try {
+        Integer.parseInt(x);
+      }catch (ParseException e) {
+        return false;
+      }
+      return x;
+    }
+
     public static void main (String [] args) {
-      if (args.length < 3 || args[0] ) {
+      if (args.length < 3 || !(isInteger(args[0]))  ) {
         System.out.println("Please format command as follows: \n java WordSearch rows columns filename");
         System.out.println("If you would to specify a seed or puzzle identifier, please format comand as follows: \n java WordSearch row columns filename seed");
         System.out.println("if you would like to access a key, please format command as follows: \n java WordSearch rows columns filname seed key");
