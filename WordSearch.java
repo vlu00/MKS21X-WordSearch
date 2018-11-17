@@ -16,9 +16,10 @@ public class WordSearch{
     //all words that were successfully added get moved into wordsAdded.
     private ArrayList<String> wordsAdded;
 
-    public WordSearch(int rows, int cols, String fileName, boolean key, int seed) throws FileNotFoundException{
+    public WordSearch(int rows, int cols, String fileName, boolean key, int myseed) throws FileNotFoundException{
       data = new char [rows][cols];
       clear();
+      seed = myseed;
       randgen = new Random(seed);
       wordsAdded = new ArrayList();
       getWords(fileName);
@@ -155,7 +156,7 @@ public class WordSearch{
         int myseed = 0;
         if (args.length == 3) {
           Random seedgen = new Random ();
-          myseed = seedgen.nextInt() % 10001;
+          myseed = Math.abs(seedgen.nextInt() % 10001);
         }
 
         if (args.length >= 4 && Integer.parseInt(args[3]) > -1) {
