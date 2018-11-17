@@ -1,5 +1,6 @@
 import java.util.*; //random, scanner, arraylist
 import java.io.*; //file, filenotfoundexception
+import java.text.*;
 public class WordSearch{
     private char[][]data;
 
@@ -15,7 +16,7 @@ public class WordSearch{
     //all words that were successfully added get moved into wordsAdded.
     private ArrayList<String> wordsAdded;
 
-    public WordSearch(int rows, int cols, String fileName, boolean key) throws FileNotFoundException{
+    public WordSearch(int rows, int cols, String fileName, boolean key, int seed) throws FileNotFoundException{
       data = new char [rows][cols];
       clear();
       randgen = new Random(seed);
@@ -136,26 +137,54 @@ public class WordSearch{
              row > data.length -1 || col > data[1].length -1;
     }
 
-    public boolean isInteger(String a) {
-      boolean x = true;
-      try {
-        Integer.parseInt(x);
-      }catch (ParseException e) {
-        return false;
-      }
-      return x;
-    }
-
     public static void main (String [] args) {
-      if (args.length < 3 || !(isInteger(args[0]))  ) {
-        System.out.println("Please format command as follows: \n java WordSearch rows columns filename");
-        System.out.println("If you would to specify a seed or puzzle identifier, please format comand as follows: \n java WordSearch row columns filename seed");
-        System.out.println("if you would like to access a key, please format command as follows: \n java WordSearch rows columns filname seed key");
+      boolean exception = false;
+      try {
+        if (args.length < 3) {
+          System.out.println("usage: java WordSearch [rows cols filename [randomSeed [answers]]]");
+          exception = true;
+        }
+
+        if (args.length > 2) {
+          File f = new File(args[2]);
+          Scanner in = new Scanner(f);
+        }
+
+        int myseed = 0;
+        if (args.length == 3) {
+          Random seedgen = new Random ();
+          myseed = seedgen.nextInt() % 10001;
+        }
+
+        if (args.length >= 4 && Integer.parseInt(args[3]) > -1) {
+          if (Integer.parseInt(args[3]) > 10000 || Integer.parseInt(args[3]) < 0) {
+            System.out.println("usage: java WordSearch [rows cols filename [randomSeed [answers]]]");
+          }
+          else {
+            myseed = Integer.parseInt(args[3]);
+          }
+        }
+
+        boolean key = false;
+        if (args.length == 5) {
+          if (args[4].equals("key")) {
+            key = true;
+          }
+        }
+
+        if (!(exception)) {
+            WordSearch A = new WordSearch(Integer.parseInt(args[0]), Integer.parseInt(args[1]), args[3], key, myseed);
+            System.out.println(A);
+        }
+
+      } catch (FileNotFoundException e) {
+        System.out.println("File not found:" + args[2]);
+        exception = true;
+      } catch (NumberFormatException e) {
+        System.out.println("usage: java WordSearch [rows cols filename [randomSeed [answers]]]");
+        exception = true;
       }
-
-      System.out.print;
     }
-
 
     public WordSearch(int rows, int cols) {
       data = new char[rows][cols];
@@ -187,60 +216,5 @@ public class WordSearch{
       randgen = new Random(seed);
     }
 
-/*
-    public boolean addWordHorizontal(String word, int row, int col) {
-      boolean complete = true;
-      if (valid(word, row, col) || col + word.length() > data[0].length) {
-        return false;
-      }
-      else {
-        for (int i = 0; i < word.length(); i++) {
-          if (data[row][col+i] != '_' && data[row][col+i] != word.charAt(i)) {
-              return false;
-          }
-        }
-        for (int i = 0; i < word.length(); i++) {
-            data[row][col+i] = word.charAt(i);
-        }
-      }
-      return complete;
-    }
 
-    public boolean addWordVertical(String word, int row, int col) {
-      boolean complete = true;
-      if (valid(word, row, col) || row + word.length() > data.length ) {
-        return false;
-      }
-      else {
-        for (int i = 0; i < word.length(); i++) {
-          if (data[row+i][col] != '_' && data[row+i][col] != word.charAt(i)) {
-              return false;
-          }
-        }
-        for (int i = 0; i < word.length(); i++) {
-            data[row+i][col] = word.charAt(i);
-        }
-      }
-      return complete;
-    }
-
-    public boolean addWordDiagonal(String word,int row, int col){
-      boolean complete = true;
-      if (valid(word, row, col) || row + word.length() > data.length ||
-          col + word.length() > data[0].length) {
-        return false;
-      }
-      else {
-        for (int i = 0; i < word.length(); i++) {
-          if (data[row+i][col+i] != '_' && data[row+i][col+i] != word.charAt(i)) {
-              return false;
-          }
-        }
-        for (int i = 0; i < word.length(); i++) {
-            data[row+i][col+i] = word.charAt(i);
-        }
-      }
-      return complete;
-    }
-*/
 }
