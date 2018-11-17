@@ -95,13 +95,15 @@ public class WordSearch{
       }
       else {
         for (int i = 0; i < word.length(); i++) {
+          String w = "" + word.charAt(i);
           if (data[r + i * rowIncrement][c + i * colIncrement] != ' ' &&
-              data[r + i * rowIncrement][c + i * colIncrement] != word.charAt(i) ) {
+              data[r + i * rowIncrement][c + i * colIncrement] != w.toUpperCase().charAt(0)) {
                 return false;
               }
         }
         for (int i = 0; i < word.length(); i++) {
-          data[r + i * rowIncrement][c + i * colIncrement] = word.charAt(i);
+          String w = "" + word.charAt(i);
+          data[r + i * rowIncrement][c + i * colIncrement] = w.toUpperCase().charAt(0);
         }
       }
       return complete;
@@ -173,12 +175,12 @@ public class WordSearch{
         }
 
         if (!(exception)) {
-            WordSearch A = new WordSearch(Integer.parseInt(args[0]), Integer.parseInt(args[1]), args[3], key, myseed);
+            WordSearch A = new WordSearch(Integer.parseInt(args[0]), Integer.parseInt(args[1]), args[2], key, myseed);
             System.out.println(A);
         }
 
       } catch (FileNotFoundException e) {
-        System.out.println("File not found:" + args[2]);
+        System.out.println("File not found: " + args[2]);
         exception = true;
       } catch (NumberFormatException e) {
         System.out.println("usage: java WordSearch [rows cols filename [randomSeed [answers]]]");
