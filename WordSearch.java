@@ -29,6 +29,7 @@ public class WordSearch{
       }
     }
 
+    //Creates list of words that need to be added to the puzzle
     public void getWords(String fileName) throws FileNotFoundException{
       wordsToAdd = new ArrayList();
       File f = new File(fileName);
@@ -38,6 +39,7 @@ public class WordSearch{
       }
     }
 
+    //Fills in remaining blank spaces of puzzle with random letters
     public void fillRandom() {
       for (int i = 0; i < data.length; i++) {
         for (int n = 0; n < data[0].length; n++) {
@@ -75,6 +77,16 @@ public class WordSearch{
           data[i][n] = ' ';
         }
       }
+    }
+
+    /**Checks if the WordGrid can hold words and if the given position is valid
+       *@return true if the given position parameters are valid. If the given
+       *position parameters are not valid, return false.
+       */
+    public boolean valid(String word, int row, int col) {
+      return data.length == 0 || data[0].length == 0 ||
+             row < 0 || col < 0 ||
+             row > data.length -1 || col > data[1].length -1;
     }
 
     private boolean addWord (String word, int r, int c, int rowIncrement, int colIncrement) {
@@ -130,20 +142,10 @@ public class WordSearch{
       }
     }
 
-    /**Checks if the WordGrid can hold words and if the given position is valid
-       *@return true if the given position parameters are valid. If the given
-       *position parameters are not valid, return false.
-       */
-    public boolean valid(String word, int row, int col) {
-      return data.length == 0 || data[0].length == 0 ||
-             row < 0 || col < 0 ||
-             row > data.length -1 || col > data[1].length -1;
-    }
-
     public static void main (String [] args) {
       boolean exception = false;
       try {
-        if (args.length < 3) {
+        if (args.length < 3 || Integer.parseInt(args[0]) < 1 || Integer.parseInt(args[1]) < 1) {
           System.out.println("usage: java WordSearch [rows cols filename [randomSeed [answers]]]");
           exception = true;
         }
@@ -161,6 +163,7 @@ public class WordSearch{
 
         if (args.length >= 4 && Integer.parseInt(args[3]) > -1) {
           if (Integer.parseInt(args[3]) > 10000 || Integer.parseInt(args[3]) < 0) {
+            exception = true;
             System.out.println("usage: java WordSearch [rows cols filename [randomSeed [answers]]]");
           }
           else {
@@ -188,36 +191,4 @@ public class WordSearch{
         exception = true;
       }
     }
-
-    public WordSearch(int rows, int cols) {
-      data = new char[rows][cols];
-      clear();
-    }
-
-    //Fills list with words that need to be added from the five file and creates a blank grid.
-    public void helper(int rows, int cols, String fileName) throws FileNotFoundException{
-      wordsToAdd = new ArrayList();
-      wordsAdded = new ArrayList();
-      data = new char[rows][cols];
-      clear();
-      File f = new File(fileName);
-      Scanner in = new Scanner(f);
-      while (in.hasNext()) {
-        wordsToAdd.add(in.next());
-      }
-    }
-
-    public WordSearch(int rows, int cols, String fileName) throws FileNotFoundException{
-      helper(rows, cols, fileName);
-      randgen = new Random();
-      seed = Math.abs(randgen.nextInt() % 1000);
-    }
-
-    public WordSearch( int rows, int cols, String fileName, int randSeed) throws FileNotFoundException {
-      helper(rows, cols, fileName);
-      seed = randSeed;
-      randgen = new Random(seed);
-    }
-
-
 }
